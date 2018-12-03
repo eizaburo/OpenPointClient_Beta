@@ -26,14 +26,33 @@ import SignUp from './screens/SignUp';
 import Drawer from './screens/Drawer';
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
 
+//icon
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 //各種Navigatorの設定
 //最終的にはサインイン前のSignedInとSignedOut画面を作り、SwitchNavigatorで切り替えます。
 
 //HomeTab
 const HomeTab = createBottomTabNavigator(
     {
-        Home: { screen: createStackNavigator({ screen: Home }) },
-        Profile: { screen: createStackNavigator({ screen: Profile }) },
+        Home: {
+            screen: createStackNavigator({ screen: Home }, {
+                defaultNavigationOptions: ({ navigation }) => ({
+                    headerLeft: (
+                        <Icon name="bars" size={24} onPress={() => { navigation.openDrawer() }} style={{ paddingLeft: 20 }} color='#000' />
+                    ),
+                })
+            })
+        },
+        Profile: {
+            screen: createStackNavigator({ screen: Profile }, {
+                defaultNavigationOptions: ({ navigation }) => ({
+                    headerLeft: (
+                        <Icon name="bars" size={24} onPress={() => { navigation.openDrawer() }} style={{ paddingLeft: 20 }} color='#000' />
+                    ),
+                })
+            })
+        },
     }
 );
 
