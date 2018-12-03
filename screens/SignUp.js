@@ -16,7 +16,15 @@ import { updateUserData } from '../actions/userAction';
 //config
 import * as appConfig from '../app.config';
 
+//devlib
+import * as devlib from '../DevLib';
+
 class SignUp extends React.Component {
+
+    state = {
+        spinner: false,
+    }
+
     render() {
         return (
             <View style={{ flex: 1, paddingVertical: 20 }}>
@@ -111,6 +119,7 @@ class SignUp extends React.Component {
                                     backgroundColor={appConfig.SING_UP_BUTTON_COLOR}
                                     icon={{ name: 'user-plus', type: 'font-awesome' }}
                                     borderRadius={20}
+                                    loading={this.state.spinner}
                                 />
                             </Card>
                         )
@@ -123,6 +132,13 @@ class SignUp extends React.Component {
     //サインアウトボタンクリック時
     handleSignUp = async (values) => {
         try {
+            //spinner on
+            this.setState({ spinner: true });
+            //async
+            await devlib.sleep(1500);
+            //spinner off（本当はもっと後の処理）
+            this.setState({ spinner: false });
+            
             //ダミーキーを保存してサインイン
             await onSignIn('xxxxx');
             // user情報をreduxに保持
