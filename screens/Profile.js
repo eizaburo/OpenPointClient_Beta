@@ -9,6 +9,9 @@ import { onSignOut } from '../Auth';
 import { connect } from 'react-redux';
 import { updateUserData } from '../actions/userAction';
 
+//config
+import * as appConfig from '../app.config';
+
 class Profile extends React.Component {
     render() {
         return (
@@ -31,7 +34,7 @@ class Profile extends React.Component {
                     <Button
                         title='サインアウト'
                         onPress={() => this.handleSignOut()}
-                        backgroundColor='#aaa'
+                        backgroundColor={appConfig.SIGN_OUT_BUTTON_COLOR}
                         icon={{ name: 'sign-out', type: 'font-awesome' }}
                         borderRadius={20}
                     />

@@ -13,6 +13,9 @@ import * as Yup from 'yup'
 import { connect } from 'react-redux';
 import { updateUserData } from '../actions/userAction';
 
+//config
+import * as appConfig from '../app.config';
+
 class SignUp extends React.Component {
     render() {
         return (
@@ -105,7 +108,7 @@ class SignUp extends React.Component {
                                     title='サインアップ'
                                     onPress={handleSubmit}
                                     buttonStyle={{ marginTop: 20 }}
-                                    backgroundColor='#CC9933'
+                                    backgroundColor={appConfig.SING_UP_BUTTON_COLOR}
                                     icon={{ name: 'user-plus', type: 'font-awesome' }}
                                     borderRadius={20}
                                 />

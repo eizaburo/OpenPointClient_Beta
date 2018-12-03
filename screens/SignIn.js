@@ -13,6 +13,10 @@ import { onSignIn } from '../Auth';
 import { connect } from 'react-redux';
 import { updateUserData } from '../actions/userAction';
 
+//config
+import * as appConfig from '../app.config';
+import App from '../App';
+
 class SignIn extends React.Component {
     render() {
         return (
@@ -58,7 +62,7 @@ class SignIn extends React.Component {
                                     title='サインイン'
                                     onPress={handleSubmit}
                                     buttonStyle={{ marginTop: 20 }}
-                                    backgroundColor='#0099FF'
+                                    backgroundColor={appConfig.SIGN_IN_BUTTON_COLOR}
                                     icon={{ name: 'sign-in', type: 'font-awesome' }}
                                     borderRadius={20}
                                 />
@@ -71,7 +75,7 @@ class SignIn extends React.Component {
                         title='サインアップ'
                         onPress={() => this.handleSignUp()}
                         buttonStyle={{ marginTop: 0 }}
-                        backgroundColor='#CC9933'
+                        backgroundColor={appConfig.SING_UP_BUTTON_COLOR}
                         icon={{ name: 'user-plus', type: 'font-awesome' }}
                         borderRadius={20}
                     />

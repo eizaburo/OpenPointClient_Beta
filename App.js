@@ -29,6 +29,9 @@ import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
 //icon
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+//config
+import * as appConfig from './app.config';
+
 //各種Navigatorの設定
 //最終的にはサインイン前のSignedInとSignedOut画面を作り、SwitchNavigatorで切り替えます。
 
@@ -39,10 +42,10 @@ const HomeTab = createBottomTabNavigator(
             screen: createStackNavigator({ screen: Home }, {
                 defaultNavigationOptions: ({ navigation }) => ({
                     headerLeft: (
-                        <Icon name="bars" size={24} onPress={() => { navigation.openDrawer() }} style={{ paddingLeft: 20 }} color='#000' />
+                        <Icon name="bars" size={24} onPress={() => { navigation.openDrawer() }} style={{ paddingLeft: 20 }} color={appConfig.BARS_COLOR} />
                     ),
                     headerStyle: {
-                        backgroundColor: '#eee'
+                        backgroundColor: appConfig.SIGNED_IN_HEADER_COLOR
                     },
                 })
             }),
@@ -54,10 +57,10 @@ const HomeTab = createBottomTabNavigator(
             screen: createStackNavigator({ screen: Profile }, {
                 defaultNavigationOptions: ({ navigation }) => ({
                     headerLeft: (
-                        <Icon name="bars" size={24} onPress={() => { navigation.openDrawer() }} style={{ paddingLeft: 20 }} color='#000' />
+                        <Icon name="bars" size={24} onPress={() => { navigation.openDrawer() }} style={{ paddingLeft: 20 }} color={appConfig.BARS_COLOR} />
                     ),
                     headerStyle: {
-                        backgroundColor: '#eee'
+                        backgroundColor: appConfig.SIGNED_IN_HEADER_COLOR
                     },
                 })
             }),
@@ -69,10 +72,10 @@ const HomeTab = createBottomTabNavigator(
     {
         tabBarOptions: {
             style: {
-                backgroundColor: '#eee',
+                backgroundColor: appConfig.SIGNED_OUT_HEADER_COLOR,
             },
-            // inactiveTintColor: '#aaa',
-            // activeTintColor: '#000',
+            inactiveTintColor: appConfig.INACTIVE_TAB_COLOR,
+            activeTintColor: appConfig.ACTIVE_TAB_COLOR,
         }
     }
 );
