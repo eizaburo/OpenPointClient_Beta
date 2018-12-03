@@ -54,7 +54,7 @@ class SignUp extends React.Component {
                                     onChangeText={handleChange('name')}
                                     onBlur={handleBlur('name')}
                                 />
-                                {(touched.name) && <FormValidationMessage>{errors.name}</FormValidationMessage>}
+                                {(touched.name && errors.name) && <FormValidationMessage>{errors.name}</FormValidationMessage>}
                                 <FormLabel>Email</FormLabel>
                                 <FormInput
                                     autoCapitalize='none'
@@ -62,7 +62,7 @@ class SignUp extends React.Component {
                                     onChangeText={handleChange('email')}
                                     onBlur={handleBlur('email')}
                                 />
-                                {(touched.email) && <FormValidationMessage>{errors.email}</FormValidationMessage>}
+                                {(touched.email && errors.email) && <FormValidationMessage>{errors.email}</FormValidationMessage>}
                                 <FormLabel>Password</FormLabel>
                                 <FormInput
                                     autoCapitalize='none'
@@ -71,7 +71,7 @@ class SignUp extends React.Component {
                                     onBlur={handleBlur('password')}
                                     secureTextEntry
                                 />
-                                {(touched.password) && <FormValidationMessage>{errors.password}</FormValidationMessage>}
+                                {(touched.password && errors.password) && <FormValidationMessage>{errors.password}</FormValidationMessage>}
                                 <FormLabel>Password（確認）</FormLabel>
                                 <FormInput
                                     autoCapitalize='none'
@@ -80,7 +80,7 @@ class SignUp extends React.Component {
                                     onBlur={handleBlur('passwordConfirm')}
                                     secureTextEntry
                                 />
-                                {(touched.passwordConfirm) && <FormValidationMessage>{errors.passwordConfirm}</FormValidationMessage>}
+                                {(touched.passwordConfirm && errors.passwordConfirm) && <FormValidationMessage>{errors.passwordConfirm}</FormValidationMessage>}
                                 <View style={{ paddingTop: 10 }}>
                                     <CheckBox
                                         center

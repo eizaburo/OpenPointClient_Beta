@@ -40,7 +40,7 @@ class SignIn extends React.Component {
                                     onChangeText={handleChange('email')}
                                     onBlur={handleBlur('email')}
                                 />
-                                {(touched.email) && <FormValidationMessage>{errors.email}</FormValidationMessage>}
+                                {(touched.email && errors.email) && <FormValidationMessage>{errors.email}</FormValidationMessage>}
                                 <FormLabel>Password</FormLabel>
                                 <FormInput
                                     autoCapitalize='none'
@@ -48,7 +48,7 @@ class SignIn extends React.Component {
                                     onChangeText={handleChange('password')}
                                     onBlur={handleBlur('password')}
                                 />
-                                {(touched.password) && <FormValidationMessage>{errors.password}</FormValidationMessage>}
+                                {(touched.password && errors.password) && <FormValidationMessage>{errors.password}</FormValidationMessage>}
                                 <Button
                                     title='サインイン'
                                     onPress={handleSubmit}
