@@ -8,9 +8,9 @@ import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
 
 export default class App extends React.Component {
-  render() {
-    return (
-      <Home />
-    );
-  }
+    render() {
+        return (
+            <Home />
+        );
+    }
 }
