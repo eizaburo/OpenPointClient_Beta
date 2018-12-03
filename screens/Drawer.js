@@ -17,6 +17,7 @@ class Drawer extends React.Component {
                     <Button
                         title='サインアウト'
                         onPress={() => this.handleSignOut()}
+                        backgroundColor='#aaa'
                         icon={{ name: 'sign-out', type: 'font-awesome' }}
                         borderRadius={20}
                     />
