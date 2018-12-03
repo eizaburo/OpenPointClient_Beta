@@ -59,6 +59,8 @@ class SignIn extends React.Component {
                                     onPress={handleSubmit}
                                     buttonStyle={{ marginTop: 20 }}
                                     backgroundColor='#0099FF'
+                                    icon={{ name: 'sign-in', type: 'font-awesome' }}
+                                    borderRadius={20}
                                 />
                             </Card>
                         )
@@ -70,6 +72,8 @@ class SignIn extends React.Component {
                         onPress={() => this.handleSignUp()}
                         buttonStyle={{ marginTop: 0 }}
                         backgroundColor='#CC9933'
+                        icon={{ name: 'user-plus', type: 'font-awesome' }}
+                        borderRadius={20}
                     />
                 </Card>
             </View >

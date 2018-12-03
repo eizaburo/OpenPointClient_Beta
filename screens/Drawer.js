@@ -17,6 +17,7 @@ class Drawer extends React.Component {
                     <Button
                         title='サインアウト'
                         onPress={() => this.handleSignOut()}
+                        borderRadius={20}
                     />
                 </Card>
             </View>

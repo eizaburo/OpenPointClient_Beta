@@ -106,6 +106,8 @@ class SignUp extends React.Component {
                                     onPress={handleSubmit}
                                     buttonStyle={{ marginTop: 20 }}
                                     backgroundColor='#CC9933'
+                                    icon={{ name: 'user-plus', type: 'font-awesome' }}
+                                    borderRadius={20}
                                 />
                             </Card>
                         )
