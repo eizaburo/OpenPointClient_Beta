@@ -20,14 +20,17 @@ class Profile extends React.Component {
                     <FormLabel>ID</FormLabel>
                     <FormInput
                         value={this.props.state.userData.user.id.toString()}
+                        editable={false}
                     />
                     <FormLabel>Name</FormLabel>
                     <FormInput
                         value={this.props.state.userData.user.name}
+                        editable={false}
                     />
                     <FormLabel>Email</FormLabel>
                     <FormInput
                         value={this.props.state.userData.user.email}
+                        editable={false}
                     />
                 </Card>
                 <Card title='サインアウト'>
