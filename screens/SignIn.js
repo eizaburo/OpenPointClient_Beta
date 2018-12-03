@@ -9,6 +9,10 @@ import * as Yup from 'yup'
 //Auth
 import { onSignIn } from '../Auth';
 
+//redux
+import { connect } from 'react-redux';
+import { updateUserData } from '../actions/userAction';
+
 class SignIn extends React.Component {
     render() {
         return (
@@ -18,7 +22,7 @@ class SignIn extends React.Component {
                         email: '',
                         password: '',
                     }}
-                    onSubmit={() => this.handleSignIn()}
+                    onSubmit={(values) => this.handleSignIn(values)}
                     validationSchema={Yup.object().shape({
                         email: Yup
                             .string()
@@ -47,6 +51,7 @@ class SignIn extends React.Component {
                                     value={values.password}
                                     onChangeText={handleChange('password')}
                                     onBlur={handleBlur('password')}
+                                    secureTextEntry
                                 />
                                 {(touched.password && errors.password) && <FormValidationMessage>{errors.password}</FormValidationMessage>}
                                 <Button
@@ -72,10 +77,17 @@ class SignIn extends React.Component {
     }
 
     //サインインボタンクリック時
-    handleSignIn = async () => {
+    handleSignIn = async (values) => {
         try {
             //ダミーキーを保存してサインイン
             await onSignIn('xxxxx');
+            //user情報をreduxに保持
+            const user = {
+                id: 77,
+                name: 'signin',
+                email: values.email
+            }
+            this.props.updateUserData(user);
             //移動
             this.props.navigation.navigate('SignedIn');
         } catch (error) {
@@ -89,4 +101,15 @@ class SignIn extends React.Component {
     }
 }
 
-export default SignIn;
+const mapStateToProps = state => (
+    {
+        state: state,
+    }
+);
+const mapDispatchToState = dispatch => (
+    {
+        updateUserData: user => dispatch(updateUserData(user)),
+    }
+);
+export default connect(mapStateToProps, mapDispatchToState)(SignIn);
+// export default SignIn;
