@@ -31,7 +31,14 @@ class SignUp extends React.Component {
                         email: Yup
                             .string()
                             .email('Emailの形式ではないようです。')
-                            .required('Emailの入力は必須です。'),
+                            .required('Emailの入力は必須です。')
+                            .test('check-mail-exist', 'このEmailは既に利用されています。', (value) => {
+                                if (value === 'exist@test.com') {
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+                            }),
                         password: Yup
                             .string()
                             .min(4, '4文字以上で入力して下さい。')
