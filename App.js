@@ -41,6 +41,9 @@ const HomeTab = createBottomTabNavigator(
                     headerLeft: (
                         <Icon name="bars" size={24} onPress={() => { navigation.openDrawer() }} style={{ paddingLeft: 20 }} color='#000' />
                     ),
+                    headerStyle: {
+                        backgroundColor: '#eee'
+                    },
                 })
             }),
             navigationOptions: {
@@ -53,12 +56,24 @@ const HomeTab = createBottomTabNavigator(
                     headerLeft: (
                         <Icon name="bars" size={24} onPress={() => { navigation.openDrawer() }} style={{ paddingLeft: 20 }} color='#000' />
                     ),
+                    headerStyle: {
+                        backgroundColor: '#eee'
+                    },
                 })
             }),
             navigationOptions: {
                 tabBarIcon: ({ tintColor }) => <Icon size={24} name="user" color={tintColor} />
             }
         },
+    },
+    {
+        tabBarOptions: {
+            style: {
+                backgroundColor: '#eee',
+            },
+            // inactiveTintColor: '#aaa',
+            // activeTintColor: '#000',
+        }
     }
 );
 
