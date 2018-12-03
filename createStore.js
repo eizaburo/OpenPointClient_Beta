@@ -1,6 +1,10 @@
 import { createStore as reduxCreateStore, combineReducers, applyMiddleware } from 'redux';
 import userReducer from './reducers/userReducer';
 
+//redux persist
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
 export default createStore = () => {
 
     //reducerまとめ
@@ -8,15 +12,26 @@ export default createStore = () => {
         userData: userReducer,
     });
 
+    //persist confit
+    const persistConfig = {
+        key: 'root',
+        storage,
+        whitelist: ['userData'],
+    }
+
+    //persisted reducer
+    const persistedReducer = persistReducer(persistConfig, rootReducer);
+
     //create store
     const store = reduxCreateStore(
-        rootReducer,
+        persistedReducer,
         applyMiddleware(
 
         )
     );
 
-    //次のステップに備えこのように返す
-    return { store };
+    //storeとpersistorを返す
+    let persistor = persistStore(store);
+    return { store, persistor };
 
 }
