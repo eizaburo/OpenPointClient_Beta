@@ -31,6 +31,7 @@ class Profile extends React.Component {
                     <Button
                         title='サインアウト'
                         onPress={() => this.handleSignOut()}
+                        icon={{ name: 'sign-out', type: 'font-awesome' }}
                         borderRadius={20}
                     />
                 </Card>
