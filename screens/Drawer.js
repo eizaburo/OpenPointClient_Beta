@@ -5,6 +5,10 @@ import { Card, FormLabel, FormInput, FormValidationMessage, Button } from 'react
 //Auth
 import { onSignOut } from '../Auth';
 
+//redux
+import { connect } from 'react-redux';
+import { updateUserData } from '../actions/userAction';
+
 class Drawer extends React.Component {
     render() {
         return (
@@ -24,6 +28,13 @@ class Drawer extends React.Component {
         try {
             //サインアウト
             await onSignOut();
+            //user情報クリア
+            const user = {
+                id: 0,
+                name: '',
+                email: ''
+            }
+            this.props.updateUserData(user);
             //移動
             this.props.navigation.navigate('SignedOut');
         } catch (error) {
@@ -32,4 +43,15 @@ class Drawer extends React.Component {
     }
 }
 
-export default Drawer;
+const mapStateToProps = state => (
+    {
+        state: state,
+    }
+);
+const mapDispatchToState = dispatch => (
+    {
+        updateUserData: user => dispatch(updateUserData(user)),
+    }
+);
+export default connect(mapStateToProps, mapDispatchToState)(Drawer);
+// export default Drawer;
