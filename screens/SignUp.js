@@ -2,6 +2,9 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { Card, FormLabel, FormInput, FormValidationMessage, Button, CheckBox } from 'react-native-elements';
 
+//Auth
+import { onSignIn } from '../Auth';
+
 class SignUp extends React.Component {
     render() {
         return (
@@ -37,8 +40,15 @@ class SignUp extends React.Component {
     }
 
     //サインアウトボタンクリック時
-    handleSignUp = () => {
-        this.props.navigation.navigate('SignedIn');
+    handleSignUp = async () => {
+        try {
+            //ダミーキーを保存してサインイン
+            await onSignIn('xxxxx');
+            //移動
+            this.props.navigation.navigate('SignedIn');
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 

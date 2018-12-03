@@ -2,6 +2,9 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { Card, FormLabel, FormInput, FormValidationMessage, Button } from 'react-native-elements';
 
+//Auth
+import { onSignOut } from '../Auth';
+
 class Profile extends React.Component {
     render() {
         return (
@@ -9,7 +12,7 @@ class Profile extends React.Component {
                 <Card title='サインアウト'>
                     <Button
                         title='サインアウト'
-                        onPress={()=>this.handleSignOut()}
+                        onPress={() => this.handleSignOut()}
                     />
                 </Card>
             </View>
@@ -17,8 +20,15 @@ class Profile extends React.Component {
     }
 
     //サインアプトボタンクリック時
-    handleSignOut = () => {
-        this.props.navigation.navigate('SignedOut');
+    handleSignOut = async () => {
+        try {
+            //サインアウト
+            await onSignOut();
+            //移動
+            this.props.navigation.navigate('SignedOut');
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 
