@@ -7,6 +7,7 @@ import { onSignOut } from '../Auth';
 
 //redux
 import { connect } from 'react-redux';
+import { updateUserData } from '../actions/userAction';
 
 class Profile extends React.Component {
     render() {
@@ -41,6 +42,13 @@ class Profile extends React.Component {
         try {
             //サインアウト
             await onSignOut();
+            //user情報クリア
+            const user = {
+                id: 0,
+                name: '',
+                email: ''
+            }
+            this.props.updateUserData(user);
             //移動
             this.props.navigation.navigate('SignedOut');
         } catch (error) {
