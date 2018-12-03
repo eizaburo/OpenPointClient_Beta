@@ -19,10 +19,10 @@ class SignUp extends React.Component {
             <View style={{ flex: 1, paddingVertical: 20 }}>
                 <Formik
                     initialValues={{
-                        name: '',
-                        email: '',
-                        password: '',
-                        passwordConfirm: '',
+                        name: 'test2',
+                        email: 'test2@test.com',
+                        password: 'testtest',
+                        passwordConfirm: 'testtest',
                         check: false,
                     }}
                     onSubmit={(values) => this.handleSignUp(values)}
