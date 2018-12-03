@@ -9,6 +9,10 @@ import { onSignIn } from '../Auth';
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 
+//redux
+import { connect } from 'react-redux';
+import { updateUserData } from '../actions/userAction';
+
 class SignUp extends React.Component {
     render() {
         return (
@@ -21,7 +25,7 @@ class SignUp extends React.Component {
                         passwordConfirm: '',
                         check: false,
                     }}
-                    onSubmit={() => this.handleSignUp()}
+                    onSubmit={(values) => this.handleSignUp(values)}
                     validationSchema={Yup.object().shape({
                         name: Yup
                             .string().matches(/^(^[a-zA-Z0-9\-_\.]+$)/, '半角英数字のみで入力してください。')
@@ -95,7 +99,7 @@ class SignUp extends React.Component {
                                         checked={values.check}
                                         onPress={() => setFieldValue('check', !values.check)}
                                     />
-                                    {(touched.check) && <FormValidationMessage>{errors.check}</FormValidationMessage>}
+                                    {(touched.check && errors.check) && <FormValidationMessage>{errors.check}</FormValidationMessage>}
                                 </View>
                                 <Button
                                     title='サインアップ'
@@ -112,10 +116,17 @@ class SignUp extends React.Component {
     }
 
     //サインアウトボタンクリック時
-    handleSignUp = async () => {
+    handleSignUp = async (values) => {
         try {
             //ダミーキーを保存してサインイン
             await onSignIn('xxxxx');
+            // user情報をreduxに保持
+            const user = {
+                id: 88,
+                name: values.name,
+                email: values.email
+            }
+            this.props.updateUserData(user);
             //移動
             this.props.navigation.navigate('SignedIn');
         } catch (error) {
@@ -124,4 +135,15 @@ class SignUp extends React.Component {
     }
 }
 
-export default SignUp;
+const mapStateToProps = state => (
+    {
+        state: state,
+    }
+);
+const mapDispatchToState = dispatch => (
+    {
+        updateUserData: user => dispatch(updateUserData(user)),
+    }
+);
+export default connect(mapStateToProps, mapDispatchToState)(SignUp);
+// export default SignUp;
