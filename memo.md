@@ -5,4 +5,4 @@ ouch screens/Home.js screens/Profile.js screens/SignIn.js screens/SignUp.js scre
 
 yarn add react-navigation
 
-yarn add react-native-navigation
+yarn add react-native-elements
