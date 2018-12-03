@@ -92,6 +92,14 @@ const SignedOut = createStackNavigator(
     {
         SignIn: { screen: SignIn },
         SignUp: { screen: SignUp }
+    },
+    {
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: '#eee',
+            },
+            // headerTintColor: '#fff', // < Back ボタンの色変更
+        },
     }
 );
 
