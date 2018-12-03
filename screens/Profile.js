@@ -5,10 +5,27 @@ import { Card, FormLabel, FormInput, FormValidationMessage, Button } from 'react
 //Auth
 import { onSignOut } from '../Auth';
 
+//redux
+import { connect } from 'react-redux';
+
 class Profile extends React.Component {
     render() {
         return (
             <View style={{ flex: 1, paddingVertical: 20 }}>
+                <Card title='サインイン情報'>
+                    <FormLabel>ID</FormLabel>
+                    <FormInput
+                        value={this.props.state.userData.user.id.toString()}
+                    />
+                    <FormLabel>Name</FormLabel>
+                    <FormInput
+                        value={this.props.state.userData.user.name}
+                    />
+                    <FormLabel>Email</FormLabel>
+                    <FormInput
+                        value={this.props.state.userData.user.email}
+                    />
+                </Card>
                 <Card title='サインアウト'>
                     <Button
                         title='サインアウト'
@@ -32,4 +49,15 @@ class Profile extends React.Component {
     }
 }
 
-export default Profile;
+const mapStateToProps = state => (
+    {
+        state: state,
+    }
+);
+const mapDispatchToState = dispatch => (
+    {
+        updateUserData: user => dispatch(updateUserData(user)),
+    }
+);
+export default connect(mapStateToProps, mapDispatchToState)(Profile);
+// export default Profile;

@@ -13,6 +13,11 @@ import {
 //Auth
 import { isSignedIn } from './Auth';
 
+//redux
+import { Provider } from 'react-redux';
+import createStore from './createStore';
+const { store } = createStore();
+
 //各スクリーンをimport
 import Home from './screens/Home';
 import Profile from './screens/Profile';
@@ -90,7 +95,9 @@ export default class App extends React.Component {
         // tokenがあるかないかでスイッチ
         const Layout = createAppContainer(createRootNavigator(signedIn));
         return (
-            <Layout />
+            <Provider store={store}>
+                <Layout />
+            </Provider>
         );
     }
 }
