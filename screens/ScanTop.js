@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import { Card, FormLabel, FormInput, FormValidationMessage, Button } from 'react-native-elements';
 
 //Auth
@@ -40,7 +40,7 @@ class ScanTop extends React.Component {
                         user_id: '',
                         value: '',
                     }}
-                    onSubmit={(values) => this.handleSendValue(values)}
+                    onSubmit={(values, { resetForm }) => this.handleSendValue(values, { resetForm })}
                     validationSchema={Yup.object().shape({
                         user_id: Yup
                             .string()
@@ -77,6 +77,7 @@ class ScanTop extends React.Component {
                                         this.props.updateValue(text);
                                         //valuesと値を同期（バリデーションを利用するため）
                                         let newValues = values;
+                                        newValues.user_id = this.props.state.qrData.qr.data;
                                         newValues.value = text;
                                         setValues(newValues);
                                     }}
@@ -126,8 +127,91 @@ class ScanTop extends React.Component {
         this.props.navigation.navigate('ScanCamera');
     }
 
-    handleSendValue = (values) => {
-        alert(JSON.stringify(values));
+    handleSendValue = (values, { resetForm }) => {
+        //formをreset
+        resetForm();
+        //operationにより分岐
+        if (values.operation === 'ADD') {
+            this.showConfirmAlertForAdd(values);
+        } else {
+            this.showConfirmAlertForSub(values);
+        }
+    }
+
+    //confirm(ADD)
+    showConfirmAlertForAdd = (values) => {
+        Alert.alert(
+            '加算処理',
+            '本当に処理を行いますか？',
+            [
+                { text: 'キャンセル', onPress: () => this.handleCancelForAdd(values), style: 'cancel' },
+                { text: '加算処理', onPress: () => this.handleExecForAdd(values), style: 'destructive' }, //onPress直後の()にvaluesを入れない
+            ]
+        );
+    }
+
+    //confirm(SUB)
+    showConfirmAlertForSub = (values) => {
+        Alert.alert(
+            '減算確認',
+            '本当に処理を行いますか？',
+            [
+                { text: 'キャンセル', onPress: () => this.handleCancelForSub(values), style: 'cancel' },
+                { text: '減算処理', onPress: () => this.handleExecForSub(values), style: 'destructive' },
+
+            ],
+            { cancelable: false }
+        );
+    }
+
+    //キャンセル処理（加算）
+    handleCancelForAdd = (values) => {
+    }
+
+    //キャンセル処理（減算）
+    handleCancelForSub = (values) => {
+    }
+
+    //加算処理（メイン）
+    handleExecForAdd = async (values) => {
+
+        this.setState({ add_disabled: true });
+        this.setState({ add_spinner: true });
+
+        await devlib.sleep(1500);
+
+        this.setState({ add_spinner: false });
+        this.setState({ add_disabled: false });
+
+
+        //実際はサーバ連携処理を書く
+        const msg = values.user_id + 'に' + values.value + 'Value ' + values.operation + 'しました。';
+        alert(msg);
+
+        //formの表示をリセット（このために両方のバリューをstoreに保存）
+        this.props.updateQrData('');
+        this.props.updateValue(0);
+
+    }
+
+    //減算処理（メイン）
+    handleExecForSub = async (values) => {
+
+        this.setState({ sub_disabled: true });
+        this.setState({ sub_spinner: true });
+
+        await devlib.sleep(1500);
+
+        this.setState({ sub_spinner: false });
+        this.setState({ sub_disabled: false });
+
+        //実際はサーバ連携処理を書く
+        const msg = values.user_id + 'に' + values.value + 'Value ' + values.operation + 'しました。';
+        alert(msg);
+
+        //formの表示をリセット（このために両方のバリューをstoreに保存）
+        this.props.updateQrData('');
+        this.props.updateValue(0);
     }
 }
 
