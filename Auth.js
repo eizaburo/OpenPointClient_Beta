@@ -17,7 +17,7 @@ export const isSignedIn = async () => {
     try {
         //token取得
         const access_token = await AsyncStorage.getItem(KEY);
-        console.log(access_token);
+        // console.log(access_token);
         //状態により分岐
         if (access_token !== null) {
             return { signedIn: true, access_token: access_token }

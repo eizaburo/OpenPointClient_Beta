@@ -26,6 +26,8 @@ import SignUp from './screens/SignUp';
 import Drawer from './screens/Drawer';
 import Forgot from './screens/Forgot';
 import Identity from './screens/Identity';
+import ScanTop from './screens/ScanTop';
+import ScanCamera from './screens/ScanCamera';
 
 //icon
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -35,6 +37,30 @@ import * as appConfig from './app.config';
 
 //各種Navigatorの設定
 //最終的にはサインイン前のSignedInとSignedOut画面を作り、SwitchNavigatorで切り替えます。
+
+//Scan
+//Scan
+const ScanStack = createStackNavigator(
+    {
+        ScanTop: {
+            screen: ScanTop,
+            navigationOptions: ({ navigation }) => ({
+                headerLeft: (
+                    <Icon name="bars" size={24} onPress={() => { navigation.openDrawer() }} style={{ paddingLeft: 20 }} color={appConfig.BARS_COLOR} />
+                ),
+            })
+        },
+        ScanCamera: { screen: ScanCamera },
+    },
+    {
+        defaultNavigationOptions: ({ navigation }) => ({
+            headerStyle: {
+                backgroundColor: appConfig.SIGNED_IN_HEADER_COLOR,
+            },
+            headerTintColor: appConfig.BACK_BUTTON_COLOR,
+        }),
+    }
+);
 
 //HomeTab
 const HomeTab = createBottomTabNavigator(
@@ -67,6 +93,12 @@ const HomeTab = createBottomTabNavigator(
             }),
             navigationOptions: {
                 tabBarIcon: ({ tintColor }) => <Icon size={24} name="qrcode" color={tintColor} />
+            }
+        },
+        Scan: {
+            screen: ScanStack,
+            navigationOptions: {
+                tabBarIcon: ({ tintColor }) => <Icon size={24} name="camera" color={tintColor} />
             }
         },
         Profile: {
