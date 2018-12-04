@@ -74,6 +74,13 @@ class SignIn extends React.Component {
                                     borderRadius={20}
                                     loading={this.state.spinner}
                                 />
+                                <Button
+                                    title='パスワードを忘れた方'
+                                    onPress={() => this.props.navigation.navigate('Forgot')}
+                                    buttonStyle={{ marginTop: 20 }}
+                                    icon={{ name: 'question-circle', type: 'font-awesome' }}
+                                    borderRadius={20}
+                                />
                             </Card>
                         )
                     }

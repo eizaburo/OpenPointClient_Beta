@@ -24,7 +24,7 @@ import Profile from './screens/Profile';
 import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
 import Drawer from './screens/Drawer';
-import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
+import Forgot from './screens/Forgot';
 
 //icon
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -94,7 +94,8 @@ const SignedIn = createDrawerNavigator(
 const SignedOut = createStackNavigator(
     {
         SignIn: { screen: SignIn },
-        SignUp: { screen: SignUp }
+        SignUp: { screen: SignUp },
+        Forgot: { screen: Forgot }
     },
     {
         defaultNavigationOptions: {
