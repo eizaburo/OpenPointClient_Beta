@@ -25,6 +25,7 @@ import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
 import Drawer from './screens/Drawer';
 import Forgot from './screens/Forgot';
+import Identity from './screens/Identity';
 
 //icon
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -51,6 +52,21 @@ const HomeTab = createBottomTabNavigator(
             }),
             navigationOptions: {
                 tabBarIcon: ({ tintColor }) => <Icon size={24} name="home" color={tintColor} />
+            }
+        },
+        Identity: {
+            screen: createStackNavigator({ screen: Identity }, {
+                defaultNavigationOptions: ({ navigation }) => ({
+                    headerLeft: (
+                        <Icon name="bars" size={24} onPress={() => { navigation.openDrawer() }} style={{ paddingLeft: 20 }} color={appConfig.BARS_COLOR} />
+                    ),
+                    headerStyle: {
+                        backgroundColor: appConfig.SIGNED_IN_HEADER_COLOR
+                    },
+                })
+            }),
+            navigationOptions: {
+                tabBarIcon: ({ tintColor }) => <Icon size={24} name="qrcode" color={tintColor} />
             }
         },
         Profile: {
@@ -100,9 +116,9 @@ const SignedOut = createStackNavigator(
     {
         defaultNavigationOptions: {
             headerStyle: {
-                backgroundColor: '#eee',
+                backgroundColor: appConfig.SIGNED_OUT_HEADER_COLOR,
             },
-            // headerTintColor: '#fff', // < Back ボタンの色変更
+            headerTintColor: appConfig.BACK_BUTTON_COLOR,
         },
     }
 );

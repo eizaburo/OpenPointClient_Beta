@@ -5,6 +5,10 @@ import { Card, FormLabel, FormInput, FormValidationMessage, Button } from 'react
 //Auth
 import { isSignedIn } from '../Auth';
 
+//formik
+import { Formik } from 'formik'
+import * as Yup from 'yup'
+
 //redux
 import { connect } from 'react-redux';
 import { updateUserData } from '../actions/userAction';
