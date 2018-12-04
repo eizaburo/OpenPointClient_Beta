@@ -22,6 +22,14 @@ import * as appConfig from '../app.config';
 import * as devlib from '../DevLib';
 
 class ScanTop extends React.Component {
+
+    state = {
+        add_spinner: false,
+        sub_spinner: false,
+        add_disabled: false,
+        sub_disabled: false,
+    }
+
     render() {
         return (
             <View style={{ flex: 1, paddingVertical: 20 }}>
@@ -67,8 +75,9 @@ class ScanTop extends React.Component {
                                         newValues.value = this.props.state.valueData.value.send_value
                                         setValues(newValues);
                                     }}
+                                    editable={false}
                                 />
-                                <FormValidationMessage>{errors.user_id}</FormValidationMessage>
+                                {(this.props.state.qrData.qr.data === '' && errors.user_id) && <FormValidationMessage>{errors.user_id}</FormValidationMessage>}
                                 <FormLabel>Value</FormLabel>
                                 <FormInput
                                     autoCapitalize='none'
@@ -83,7 +92,7 @@ class ScanTop extends React.Component {
                                     }}
                                     type='number'
                                 />
-                                <FormValidationMessage>{errors.value}</FormValidationMessage>
+                                {(errors.value) && <FormValidationMessage>{errors.value}</FormValidationMessage>}
                                 <Button
                                     title='加算'
                                     onPress={() => {
@@ -98,6 +107,8 @@ class ScanTop extends React.Component {
                                     borderRadius={20}
                                     icon={{ name: 'plus', type: 'font-awesome' }}
                                     backgroundColor='#FF3366'
+                                    loading={this.state.add_spinner}
+                                    disabled={this.state.add_disabled}
                                 />
                                 <Button
                                     title='減算'
@@ -113,6 +124,8 @@ class ScanTop extends React.Component {
                                     borderRadius={20}
                                     icon={{ name: 'minus', type: 'font-awesome' }}
                                     backgroundColor='#6699CC'
+                                    loading={this.state.sub_spinner}
+                                    disabled={this.state.sub_disabled}
                                 />
                             </Card>
                         )
