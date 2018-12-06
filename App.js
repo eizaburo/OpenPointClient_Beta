@@ -28,6 +28,7 @@ import Forgot from './screens/Forgot';
 import Identity from './screens/Identity';
 import ScanTop from './screens/ScanTop';
 import ScanCamera from './screens/ScanCamera';
+import History from './screens/History';
 
 //icon
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -99,6 +100,21 @@ const HomeTab = createBottomTabNavigator(
             screen: ScanStack,
             navigationOptions: {
                 tabBarIcon: ({ tintColor }) => <Icon size={24} name="camera" color={tintColor} />
+            }
+        },
+        History: {
+            screen: createStackNavigator({ screen: History }, {
+                defaultNavigationOptions: ({ navigation }) => ({
+                    headerLeft: (
+                        <Icon name="bars" size={24} onPress={() => { navigation.openDrawer() }} style={{ paddingLeft: 20 }} color={appConfig.BARS_COLOR} />
+                    ),
+                    headerStyle: {
+                        backgroundColor: appConfig.SIGNED_IN_HEADER_COLOR
+                    },
+                })
+            }),
+            navigationOptions: {
+                tabBarIcon: ({ tintColor }) => <Icon size={24} name="history" color={tintColor} />
             }
         },
         Profile: {
