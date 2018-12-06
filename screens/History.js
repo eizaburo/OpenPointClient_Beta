@@ -33,10 +33,10 @@ class History extends React.Component {
         const new_list = devlib.histories.map((item) => {
             if (item.operation === 'ADD') {
                 item.icon = 'arrow-up';
-                item.color = '#FF3366';
+                item.color = appConfig.ADD_BUTTON_COLOR;
             } else {
                 item.icon = 'arrow-down';
-                item.color = '#6699CC';
+                item.color = appConfig.SUB_BUTTON_COLOR;
             }
             return item;
         });

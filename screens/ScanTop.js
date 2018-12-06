@@ -40,7 +40,7 @@ class ScanTop extends React.Component {
                         buttonStyle={{ margin: 0 }}
                         borderRadius={20}
                         icon={{ name: 'qrcode', type: 'font-awesome' }}
-                        backgroundColor='#666666'
+                        backgroundColor={appConfig.QR_READ_BUTTON_COLOR}
                     />
                 </Card>
                 <Formik
@@ -106,7 +106,7 @@ class ScanTop extends React.Component {
                                     buttonStyle={{ marginTop: 20 }}
                                     borderRadius={20}
                                     icon={{ name: 'plus', type: 'font-awesome' }}
-                                    backgroundColor='#FF3366'
+                                    backgroundColor={appConfig.ADD_BUTTON_COLOR}
                                     loading={this.state.add_spinner}
                                     disabled={this.state.add_disabled}
                                 />
@@ -123,7 +123,7 @@ class ScanTop extends React.Component {
                                     buttonStyle={{ marginTop: 20 }}
                                     borderRadius={20}
                                     icon={{ name: 'minus', type: 'font-awesome' }}
-                                    backgroundColor='#6699CC'
+                                    backgroundColor={appConfig.SUB_BUTTON_COLOR}
                                     loading={this.state.sub_spinner}
                                     disabled={this.state.sub_disabled}
                                 />

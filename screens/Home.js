@@ -41,7 +41,7 @@ class Home extends React.Component {
                         >
                             <Button
                                 title="もっと見る"
-                                backgroundColor='#CC9933'
+                                backgroundColor={appConfig.RECOMMEND_BUTTON_COLOR}
                                 borderRadius={20}
                                 icon={{ name: 'eye', type: 'octicon' }}
                                 onPress={() => alert(item.id)}
