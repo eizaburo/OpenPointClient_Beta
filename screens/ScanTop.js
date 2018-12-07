@@ -52,7 +52,7 @@ class ScanTop extends React.Component {
                     validationSchema={Yup.object().shape({
                         user_id: Yup
                             .string()
-                            .matches(/^[0-9]{10}$/, 'ユーザーIDは10桁の英数字です。')
+                            .matches(/^[0-9]{10}$/, 'ユーザーIDは10桁の英数字です（再度スキャンして下さい）。')
                             .required('この項目は必須です（QRをスキャンしてください）。'),
                         value: Yup
                             .string()
@@ -77,7 +77,7 @@ class ScanTop extends React.Component {
                                     }}
                                     editable={false}
                                 />
-                                {(this.props.state.qrData.qr.data === '' && errors.user_id) && <FormValidationMessage>{errors.user_id}</FormValidationMessage>}
+                                {(!String(this.props.state.qrData.qr.data).match(/^[0-9]{10}$/) && errors.user_id) && <FormValidationMessage>{errors.user_id}</FormValidationMessage>}
                                 <FormLabel>Value</FormLabel>
                                 <FormInput
                                     autoCapitalize='none'
