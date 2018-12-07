@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Card, FormLabel, FormInput, FormValidationMessage, Button } from 'react-native-elements';
 
 //expo for readBarcode
@@ -54,14 +54,34 @@ class ScanCamera extends React.Component {
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <BarCodeScanner
                     onBarCodeRead={this.handleBarCodeScanned}
-                    style={{ height: 300, width: 300 }}
-                />
-                <Button
-                    title='読み取りシミュレートボタン（テスト用）'
-                    onPress={() => this.handleBarCodeScanned({ type: 'QR', data: '8888888888' })}
-                    buttonStyle={{ marginTop: 20 }}
-                    borderRadius={20}
-                />
+                    style={[StyleSheet.absoluteFill, styles.container]}
+                >
+                    {/* 上部の文字 */}
+                    <View style={styles.layerTop} >
+                        <Text
+                            style={styles.description}
+                            onPress={() => this.handleBarCodeScanned({ type: 'QR', data: '9999999999' })}
+                        >Scan QR code</Text>
+                    </View>
+
+                    {/* 周りの半透明 */}
+                    <View style={styles.layerCenter}>
+                        <View style={styles.layerLeft} />
+                        <View style={styles.focused} />
+                        <View style={styles.layerRight} />
+                    </View>
+
+                    {/* 下部の文字 */}
+                    <View style={styles.layerBottom}>
+                        <Text
+                            onPress={() => this.props.navigation.navigate('ScanTop')}
+                            style={styles.cancel}
+                        >
+                            Cancel
+                        </Text>
+
+                    </View>
+                </BarCodeScanner>
             </View>
         );
     }
@@ -85,3 +105,50 @@ const mapDispatchToState = dispatch => (
 );
 export default connect(mapStateToProps, mapDispatchToState)(ScanCamera);
 // export default ScanCamera;
+
+
+//QR Read画面関連CSS
+const opacity = 'rgba(0, 0, 0, .6)';
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+    },
+    layerTop: {
+        flex: 1,
+        backgroundColor: opacity
+    },
+    layerCenter: {
+        flex: 1,
+        flexDirection: 'row',
+
+    },
+    layerLeft: {
+        flex: 1,
+        backgroundColor: opacity
+    },
+    focused: {
+        flex: 8
+    },
+    layerRight: {
+        flex: 1,
+        backgroundColor: opacity
+    },
+    layerBottom: {
+        flex: 1,
+        backgroundColor: opacity
+    },
+    description: {
+        fontSize: 25,
+        marginTop: '40%',
+        textAlign: 'center',
+        color: 'white',
+    },
+    cancel: {
+        fontSize: 20,
+        textAlign: 'center',
+        color: 'white',
+        marginTop: '30%',
+
+    },
+});
