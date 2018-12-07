@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, DeviceEventEmitter, Dimensions } from 'react-native';
 import { Card, FormLabel, FormInput, FormValidationMessage, Button } from 'react-native-elements';
 
 //expo for readBarcode
@@ -22,6 +22,9 @@ import * as appConfig from '../app.config';
 
 //devlib
 import * as devlib from '../DevLib';
+
+const { width } = Dimensions.get('window');
+const qrSize = width * 0.7;
 
 class ScanCamera extends React.Component {
 
@@ -60,7 +63,10 @@ class ScanCamera extends React.Component {
                     <View style={styles.layerTop} >
                         <Text
                             style={styles.description}
-                            onPress={() => this.handleBarCodeScanned({ type: 'QR', data: '9999999999' })}
+                            onPress={() => {
+                                DeviceEventEmitter.emit('handleBackFromScanCamera', { param: 'abc' });
+                                this.handleBarCodeScanned({ type: 'QR', data: '9999999999' })
+                            }}
                         >Scan QR code</Text>
                     </View>
 
@@ -116,10 +122,10 @@ const styles = StyleSheet.create({
     },
     layerTop: {
         flex: 1,
-        backgroundColor: opacity
+        backgroundColor: opacity,
     },
     layerCenter: {
-        flex: 1,
+        height: width * 0.8,
         flexDirection: 'row',
 
     },
@@ -140,7 +146,7 @@ const styles = StyleSheet.create({
     },
     description: {
         fontSize: 25,
-        marginTop: '40%',
+        marginTop: '20%',
         textAlign: 'center',
         color: 'white',
     },
@@ -148,7 +154,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
         color: 'white',
-        marginTop: '30%',
-
+        marginTop: '20%',
     },
 });
