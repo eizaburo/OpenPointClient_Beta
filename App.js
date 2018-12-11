@@ -29,6 +29,7 @@ import Identity from './screens/Identity';
 import ScanTop from './screens/ScanTop';
 import ScanCamera from './screens/ScanCamera';
 import History from './screens/History';
+import Agreement from './screens/Agreement';
 
 //icon
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -164,7 +165,8 @@ const SignedOut = createStackNavigator(
             })
         },
         SignUp: { screen: SignUp },
-        Forgot: { screen: Forgot }
+        Forgot: { screen: Forgot },
+        Agreement: { screen: Agreement }
     },
     {
         defaultNavigationOptions: {
