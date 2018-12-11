@@ -105,7 +105,13 @@ class SignUp extends React.Component {
                                             secureTextEntry
                                         />
                                         {(touched.passwordConfirm && errors.passwordConfirm) && <FormValidationMessage>{errors.passwordConfirm}</FormValidationMessage>}
-                                        <View style={{ paddingTop: 10 }}>
+                                        <Button
+                                            title='規約を読む'
+                                            transparent
+                                            color='blue'
+                                            buttonStyle={{ marginTop: 10 }}
+                                        />
+                                        <View style={{ paddingTop: 0 }}>
                                             <CheckBox
                                                 center
                                                 title='同意する'
@@ -117,7 +123,7 @@ class SignUp extends React.Component {
                                         <Button
                                             title='サインアップ'
                                             onPress={handleSubmit}
-                                            buttonStyle={{ marginTop: 20 }}
+                                            buttonStyle={{ marginTop: 10 }}
                                             backgroundColor={appConfig.SING_UP_BUTTON_COLOR}
                                             icon={{ name: 'user-plus', type: 'font-awesome' }}
                                             borderRadius={20}
