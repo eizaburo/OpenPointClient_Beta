@@ -107,6 +107,7 @@ class SignUp extends React.Component {
                                         {(touched.passwordConfirm && errors.passwordConfirm) && <FormValidationMessage>{errors.passwordConfirm}</FormValidationMessage>}
                                         <Button
                                             title='規約を読む'
+                                            onPress={()=>this.props.navigation.navigate('Agreement')}
                                             transparent
                                             color='blue'
                                             buttonStyle={{ marginTop: 10 }}
@@ -114,7 +115,7 @@ class SignUp extends React.Component {
                                         <View style={{ paddingTop: 0 }}>
                                             <CheckBox
                                                 center
-                                                title='同意する'
+                                                title='規約に同意する'
                                                 checked={values.check}
                                                 onPress={() => setFieldValue('check', !values.check)}
                                             />
