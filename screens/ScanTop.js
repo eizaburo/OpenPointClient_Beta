@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Alert } from 'react-native';
+import { View, Text, Alert, ScrollView } from 'react-native';
 import { Card, FormLabel, FormInput, FormValidationMessage, Button } from 'react-native-elements';
 
 //Auth
@@ -33,104 +33,106 @@ class ScanTop extends React.Component {
     render() {
         return (
             <View style={{ flex: 1, paddingVertical: 20 }}>
-                <Card title='QR読み取り'>
-                    <Button
-                        title='QRコードを読み取る'
-                        onPress={() => this.handleReadQr()}
-                        buttonStyle={{ margin: 0 }}
-                        borderRadius={20}
-                        icon={{ name: 'qrcode', type: 'font-awesome' }}
-                        backgroundColor={appConfig.QR_READ_BUTTON_COLOR}
-                    />
-                </Card>
-                <Formik
-                    initialValues={{
-                        user_id: '',
-                        value: '',
-                    }}
-                    onSubmit={(values, { resetForm }) => this.handleSendValue(values, { resetForm })}
-                    validationSchema={Yup.object().shape({
-                        user_id: Yup
-                            .string()
-                            .matches(/^[0-9]{10}$/, 'ユーザーIDは10桁の英数字です（再度スキャンして下さい）。')
-                            .required('この項目は必須です（QRをスキャンしてください）。'),
-                        value: Yup
-                            .string()
-                            .matches(/^[1-9][0-9]{0,2}$/, '1以上999以下の半角数字を入力してください。')
-                            .required('この項目は必須です。'),
-                    })}
-                >
-                    {
-                        ({ handleSubmit, handleChange, values, errors, handleBlur, setValues }) => (
-                            <Card title='サーバ連携'>
-                                <FormLabel>ユーザーID</FormLabel>
-                                <FormInput
-                                    autoCapitalize='none'
-                                    value={this.props.state.qrData.qr.data}
-                                    onChangeText={(text) => {
-                                        this.props.updateQrData(text);
-                                        //valuesと値を同期（バリデーションを利用するため）
-                                        let newValues = values;
-                                        newValues.user_id = text;
-                                        newValues.value = this.props.state.valueData.value.send_value
-                                        setValues(newValues);
-                                    }}
-                                    editable={false}
-                                />
-                                {(!String(this.props.state.qrData.qr.data).match(/^[0-9]{10}$/) && errors.user_id) && <FormValidationMessage>{errors.user_id}</FormValidationMessage>}
-                                <FormLabel>Value</FormLabel>
-                                <FormInput
-                                    autoCapitalize='none'
-                                    value={String(this.props.state.valueData.value.send_value)}
-                                    onChangeText={(text) => {
-                                        this.props.updateValue(text);
-                                        //valuesと値を同期（バリデーションを利用するため）
-                                        let newValues = values;
-                                        newValues.user_id = this.props.state.qrData.qr.data;
-                                        newValues.value = text;
-                                        setValues(newValues);
-                                    }}
-                                    type='number'
-                                />
-                                {(errors.value) && <FormValidationMessage>{errors.value}</FormValidationMessage>}
-                                <Button
-                                    title='加算'
-                                    onPress={() => {
-                                        let newValues = values;
-                                        newValues.user_id = this.props.state.qrData.qr.data; //同期
-                                        newValues.value = this.props.state.valueData.value.send_value; //同期
-                                        newValues.operation = 'ADD'; //加算か減算かを判断するフラグ
-                                        setValues(newValues);
-                                        handleSubmit(); //サブミット実行（バリデーションかかる）
-                                    }}
-                                    buttonStyle={{ marginTop: 20 }}
-                                    borderRadius={20}
-                                    icon={{ name: 'plus', type: 'font-awesome' }}
-                                    backgroundColor={appConfig.ADD_BUTTON_COLOR}
-                                    loading={this.state.add_spinner}
-                                    disabled={this.state.add_disabled}
-                                />
-                                <Button
-                                    title='減算'
-                                    onPress={() => {
-                                        let newValues = values;
-                                        newValues.user_id = this.props.state.qrData.qr.data; //同期
-                                        newValues.value = this.props.state.valueData.value.send_value; //同期
-                                        newValues.operation = 'SUB'; //加算か減算かを判断するフラグ
-                                        setValues(newValues);
-                                        handleSubmit(); //サブミット実行（バリデーションかかる）
-                                    }}
-                                    buttonStyle={{ marginTop: 20 }}
-                                    borderRadius={20}
-                                    icon={{ name: 'minus', type: 'font-awesome' }}
-                                    backgroundColor={appConfig.SUB_BUTTON_COLOR}
-                                    loading={this.state.sub_spinner}
-                                    disabled={this.state.sub_disabled}
-                                />
-                            </Card>
-                        )
-                    }
-                </Formik>
+                <ScrollView>
+                    <Card title='QR読み取り'>
+                        <Button
+                            title='QRコードを読み取る'
+                            onPress={() => this.handleReadQr()}
+                            buttonStyle={{ margin: 0 }}
+                            borderRadius={20}
+                            icon={{ name: 'qrcode', type: 'font-awesome' }}
+                            backgroundColor={appConfig.QR_READ_BUTTON_COLOR}
+                        />
+                    </Card>
+                    <Formik
+                        initialValues={{
+                            user_id: '',
+                            value: '',
+                        }}
+                        onSubmit={(values, { resetForm }) => this.handleSendValue(values, { resetForm })}
+                        validationSchema={Yup.object().shape({
+                            user_id: Yup
+                                .string()
+                                .matches(/^[0-9]{10}$/, 'ユーザーIDは10桁の英数字です（再度スキャンして下さい）。')
+                                .required('この項目は必須です（QRをスキャンしてください）。'),
+                            value: Yup
+                                .string()
+                                .matches(/^[1-9][0-9]{0,2}$/, '1以上999以下の半角数字を入力してください。')
+                                .required('この項目は必須です。'),
+                        })}
+                    >
+                        {
+                            ({ handleSubmit, handleChange, values, errors, handleBlur, setValues }) => (
+                                <Card title='サーバ連携'>
+                                    <FormLabel>ユーザーID</FormLabel>
+                                    <FormInput
+                                        autoCapitalize='none'
+                                        value={this.props.state.qrData.qr.data}
+                                        onChangeText={(text) => {
+                                            this.props.updateQrData(text);
+                                            //valuesと値を同期（バリデーションを利用するため）
+                                            let newValues = values;
+                                            newValues.user_id = text;
+                                            newValues.value = this.props.state.valueData.value.send_value
+                                            setValues(newValues);
+                                        }}
+                                        editable={false}
+                                    />
+                                    {(!String(this.props.state.qrData.qr.data).match(/^[0-9]{10}$/) && errors.user_id) && <FormValidationMessage>{errors.user_id}</FormValidationMessage>}
+                                    <FormLabel>Value</FormLabel>
+                                    <FormInput
+                                        autoCapitalize='none'
+                                        value={String(this.props.state.valueData.value.send_value)}
+                                        onChangeText={(text) => {
+                                            this.props.updateValue(text);
+                                            //valuesと値を同期（バリデーションを利用するため）
+                                            let newValues = values;
+                                            newValues.user_id = this.props.state.qrData.qr.data;
+                                            newValues.value = text;
+                                            setValues(newValues);
+                                        }}
+                                        type='number'
+                                    />
+                                    {(errors.value) && <FormValidationMessage>{errors.value}</FormValidationMessage>}
+                                    <Button
+                                        title='加算'
+                                        onPress={() => {
+                                            let newValues = values;
+                                            newValues.user_id = this.props.state.qrData.qr.data; //同期
+                                            newValues.value = this.props.state.valueData.value.send_value; //同期
+                                            newValues.operation = 'ADD'; //加算か減算かを判断するフラグ
+                                            setValues(newValues);
+                                            handleSubmit(); //サブミット実行（バリデーションかかる）
+                                        }}
+                                        buttonStyle={{ marginTop: 20 }}
+                                        borderRadius={20}
+                                        icon={{ name: 'plus', type: 'font-awesome' }}
+                                        backgroundColor={appConfig.ADD_BUTTON_COLOR}
+                                        loading={this.state.add_spinner}
+                                        disabled={this.state.add_disabled}
+                                    />
+                                    <Button
+                                        title='減算'
+                                        onPress={() => {
+                                            let newValues = values;
+                                            newValues.user_id = this.props.state.qrData.qr.data; //同期
+                                            newValues.value = this.props.state.valueData.value.send_value; //同期
+                                            newValues.operation = 'SUB'; //加算か減算かを判断するフラグ
+                                            setValues(newValues);
+                                            handleSubmit(); //サブミット実行（バリデーションかかる）
+                                        }}
+                                        buttonStyle={{ marginTop: 20 }}
+                                        borderRadius={20}
+                                        icon={{ name: 'minus', type: 'font-awesome' }}
+                                        backgroundColor={appConfig.SUB_BUTTON_COLOR}
+                                        loading={this.state.sub_spinner}
+                                        disabled={this.state.sub_disabled}
+                                    />
+                                </Card>
+                            )
+                        }
+                    </Formik>
+                </ScrollView>
             </View>
         );
     }
